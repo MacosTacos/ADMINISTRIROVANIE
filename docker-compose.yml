@@ -88,17 +88,28 @@ services:
       - prometheus
 
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: ./jenkins
+      dockerfile: Dockerfile
     container_name: jenkins
+    privileged: true
+    user: root
     ports:
       - "8088:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      # Чтобы Jenkins мог собирать docker-образы из пайплайна:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/workspace/demo-admink
+      - ./jenkins/jenkins.yaml:/var/jenkins_home/jenkins.yaml:ro
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/jenkins.yaml
+    networks:
+      - monitoring
 
 volumes:
   prometheus_data:
   grafana_data:
   jenkins_home:
+  monitoring:

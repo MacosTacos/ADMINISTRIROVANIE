@@ -14,10 +14,12 @@ pipeline {
 
     stage('Compose Build & Up') {
       steps {
-        sh '''
-          set -e
-          docker compose up -d --build
-        '''
+        dir('/workspace/demo-admink') {
+                  sh '''
+                    set -e
+                    docker compose up -d --build
+                  '''
+                }
       }
     }
   }
