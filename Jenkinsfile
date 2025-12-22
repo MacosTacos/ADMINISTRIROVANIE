@@ -12,9 +12,20 @@ pipeline {
       }
     }
 
+    stage('Cleanup') {
+      steps {
+        dir('/workspace/demo-adminka') {
+          sh '''
+            docker compose down -v --remove-orphans || true
+            docker rm -f rabbitmq || true
+          '''
+        }
+      }
+    }
+
     stage('Compose Build & Up') {
       steps {
-        dir('/workspace/demo-admink') {
+        dir('/workspace/demo-adminka') {
                   sh '''
                     set -e
                     docker compose up -d --build rabbitmq caffe-main order-service audit-service
