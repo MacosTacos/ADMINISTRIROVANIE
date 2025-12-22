@@ -17,7 +17,7 @@ pipeline {
         dir('/workspace/demo-admink') {
                   sh '''
                     set -e
-                    docker compose up -d --build
+                    docker compose up -d --build rabbitmq caffe-main order-service audit-service
                   '''
                 }
       }
