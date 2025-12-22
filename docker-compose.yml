@@ -112,4 +112,5 @@ volumes:
   prometheus_data:
   grafana_data:
   jenkins_home:
+networks:
   monitoring:
