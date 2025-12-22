@@ -22,7 +22,7 @@ pipeline {
     stage('Cleanup') {
       steps {
         sh '''
-          docker compose down -v --remove-orphans || true
+          docker compose down -v --remove-orphans ${CONTAINERS} || true
           docker rm -f ${CONTAINERS} || true
         '''
       }
