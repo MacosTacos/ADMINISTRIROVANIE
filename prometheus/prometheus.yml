@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 10s
+
+scrape_configs:
+  - job_name: "caffe-main"
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["caffe-main:8080"]
+
+  - job_name: "order-service"
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["order-service:8081"]
+
+  - job_name: "audit-service"
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["audit-service:8082"]
