@@ -3,6 +3,7 @@ pipeline {
 
   environment {
     COMPOSE_PROJECT_NAME = "caffe"
+    CONTAINERS = "rabbitmq caffe-main order-service audit-service"
   }
 
   stages {
@@ -16,7 +17,7 @@ pipeline {
       steps {
         sh '''
           docker compose down -v --remove-orphans || true
-          docker rm -f rabbitmq || true
+          docker rm -f ${CONTAINERS} || true
         '''
       }
     }
@@ -25,7 +26,7 @@ pipeline {
       steps {
         sh '''
           set -e
-          docker compose up -d --build rabbitmq caffe-main order-service audit-service
+          docker compose up -d --build ${CONTAINERS}
         '''
       }
     }
