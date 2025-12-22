@@ -6,6 +6,12 @@ pipeline {
     CONTAINERS = "rabbitmq caffe-main order-service audit-service"
   }
 
+  triggers {
+
+          pollSCM('H/2 * * * *')
+
+      }
+
   stages {
     stage('Checkout') {
       steps {
