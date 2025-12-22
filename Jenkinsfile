@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    COMPOSE_PROJECT_NAME = "caffe"
+    COMPOSE_PROJECT_NAME = "administrirovanie"
     CONTAINERS = "rabbitmq caffe-main order-service audit-service"
   }
 
